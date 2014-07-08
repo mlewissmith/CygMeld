@@ -6,6 +6,8 @@ name=meld
 version=1.6.0
 release=0.1
 
+#BuildRequires(intltool)
+#Requires(python-gtk2.0)
 
 _sourcedir=$(dirname $(readlink -e $0))
 _builddir=$(dirname $(readlink -e $0))
@@ -27,14 +29,14 @@ __setup_n=${name}-${version}
     cd ${_builddir}
     cd ${__setup_n}
 }
-false
+
 
 #install
 {
     cd ${_builddir}
     cd ${__setup_n}
 }
-make DESTDIR=${buildroot} install
+make DESTDIR=${buildroot} prefix=/opt/${name}-${version} install
 
 mkdir -p ${buildroot}/etc/profile.d
 cat <<EOF>${buildroot}/etc/profile.d/${name}-${version}.sh
