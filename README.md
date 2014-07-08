@@ -1,8 +1,8 @@
 MELD for CYGWIN
 ===============
 
-https://github.com/GNOME/meld
-https://git.gnome.org/browse/meld/
+* https://github.com/GNOME/meld
+* https://git.gnome.org/browse/meld/
 
 INSTALLING
 ----------
