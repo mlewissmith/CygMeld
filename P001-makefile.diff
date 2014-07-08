@@ -1,0 +1,22 @@
+diff --git a/Makefile b/Makefile
+index 2dd6e7a..167f4f6 100644
+--- a/Makefile
++++ b/Makefile
+@@ -17,7 +17,7 @@ all: $(addsuffix .install,$(SPECIALS)) meld.desktop
+ 	$(MAKE) -C help
+ 
+ .PHONY:clean
+-clean: 
++clean:
+ 	@find ./meld -type f \( -name '*.pyc' -o -name '*.install' \) -print0 |\
+ 		xargs -0 rm -f
+ 	@find ./bin -type f \( -name '*.install' \) -print0 | xargs -0 rm -f
+@@ -81,8 +81,6 @@ install: $(addsuffix .install,$(SPECIALS)) meld.desktop
+ 		$(DESTDIR)$(sharedir)/icons/hicolor/48x48/apps/meld.png
+ 	install -m 644 data/icons/hicolor/scalable/apps/meld.svg \
+ 		$(DESTDIR)$(sharedir)/icons/hicolor/scalable/apps/meld.svg
+-	$(MAKE) -C po install
+-	$(MAKE) -C help install
+ 
+ meld.desktop: data/meld.desktop.in
+ 	intltool-merge -d po data/meld.desktop.in data/meld.desktop
