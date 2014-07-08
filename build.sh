@@ -1,28 +1,60 @@
 #!/bin/bash
-set -e -x
+set -ex
 umask 0022
 
-NAME=meld
-VERSION=1.6.0
-BUILDDIR=$(dirname $(readlink -e $0))
-BUILDROOT=${BUILDDIR}/BUILDROOT
+name=meld
+version=1.6.0
+release=0.1
+
+
+_sourcedir=$(dirname $(readlink -e $0))
+_builddir=$(dirname $(readlink -e $0))
+buildroot=${_builddir}/BUILDROOT
+__setup_n=${name}-${version}
 
 #prep
-rm -fr ${BUILDROOT}
-cd ${BUILDDIR}/meld
-#git clean -xdf
+{
+    __setup_n=meld
+    rm -rf ${buildroot}
+    cd ${_builddir}
+    cd ${__setup_n}
+    git clean -xdf
+}
 
 
 #build
-cd ${BUILDDIR}/meld
-make configure
-./configure --prefix=/opt/${NAME}-${VERSION}
-make all
+{
+    cd ${_builddir}
+    cd ${__setup_n}
+}
+false
 
 #install
-cd ${BUILDDIR}/meld
-make DESTDIR=${BUILDROOT} install
+{
+    cd ${_builddir}
+    cd ${__setup_n}
+}
+make DESTDIR=${buildroot} install
 
-#package
-cd ${BUILDROOT}
-tar -jcvf ${BUILDDIR}/${NAME}-${VERSION}.tar.bz2 *
+mkdir -p ${buildroot}/etc/profile.d
+cat <<EOF>${buildroot}/etc/profile.d/${name}-${version}.sh
+export PATH=/opt/${name}-${version}/bin:\$PATH
+EOF
+
+#PACKAGE
+{
+    cd ${_sourcedir}
+}
+mkdir -p ${buildroot}/etc/uninstall
+sed "s:%MANIFEST%:${name}-${version}.lst:g" _uninstaller.sh > ${buildroot}/etc/uninstall/${name}-${version}-uninstall.sh
+chmod 0644 ${buildroot}/etc/uninstall/${name}-${version}-uninstall.sh
+
+find ${buildroot} -mindepth 1 -not -type d -printf "%P\n" > ${name}-${version}.lst
+find ${buildroot} -mindepth 1 -type d -printf "%P/\n" >> ${name}-${version}.lst
+sort ${name}-${version}.lst >  ${buildroot}/${name}-${version}.lst
+
+sed "s:%MANIFEST%:${name}-${version}.lst:g" _installer.sh > ${buildroot}/_installer.sh
+chmod 0755 ${buildroot}/_installer.sh
+
+makeself --bzip2 ./BUILDROOT ${name}-${version}-${release}.${MACHTYPE}.sh "${name}-${version}-${release}.${MACHTYPE}" ./_installer.sh
+

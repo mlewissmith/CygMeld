@@ -1,0 +1,3 @@
+[submodule "meld"]
+	path = meld
+	url = git://github.com/GNOME/meld.git
