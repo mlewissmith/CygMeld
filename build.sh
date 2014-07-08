@@ -2,6 +2,9 @@
 set -ex
 umask 0022
 
+## [mils] NOTE
+## current stable version 1.8.5 is not tagged, but is available as git revision 2591549
+
 name=meld
 version=1.6.0
 release=0.1
