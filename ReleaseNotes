@@ -1,3 +1,11 @@
 RELEASE NOTES
 =============
 
+meld-1.6.0-0.1
+--------------
+
+Package meld-1.6.0 (because it's the version currently available on SLE_11_SP3)
+
+* Cygwin installation script `meld-1.6.0-0.1.i686-pc-cygwin.sh`
+* DOES NOT include translations, help files
+* Seems a bit buggy...
