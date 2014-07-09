@@ -7,7 +7,7 @@ source _build_sh.rc
 
 name=meld
 version=1.6.0
-release=0.1.1
+release=1.0
 
 BuildRequires intltool
 BuildRequires python-gtk2.0
@@ -29,7 +29,6 @@ __setup_n=${name}-${version}
     git reset --hard
     git clean -xdf
 }
-git apply ../P001-makefile.diff
 
 
 #build
