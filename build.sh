@@ -7,7 +7,7 @@ source _build_sh.rc
 
 name=meld
 version=1.6.0
-release=0.1
+release=0.1.1
 
 BuildRequires intltool
 BuildRequires python-gtk2.0
