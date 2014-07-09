@@ -11,6 +11,7 @@ release=0.1.1
 
 BuildRequires intltool
 BuildRequires python-gtk2.0
+BuildRequires rarian
 
 set -x
 _sourcedir=$(dirname $(readlink -e $0))
