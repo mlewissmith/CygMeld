@@ -1,6 +1,6 @@
 #!/bin/bash
-set -ex
-umask 0022
+set -e
+source _build_sh.rc
 
 ## [mils] NOTE
 ## current stable version 1.8.5 is not tagged, but is available as git revision 2591549
@@ -9,9 +9,10 @@ name=meld
 version=1.6.0
 release=0.1
 
-#BuildRequires(intltool)
-#Requires(python-gtk2.0)
+BuildRequires intltool
+BuildRequires python-gtk2.0
 
+set -x
 _sourcedir=$(dirname $(readlink -e $0))
 _builddir=$(dirname $(readlink -e $0))
 buildroot=${_builddir}/BUILDROOT
@@ -54,8 +55,8 @@ EOF
     cd ${_sourcedir}
 }
 mkdir -p ${buildroot}/etc/uninstall
-sed "s:%MANIFEST%:${name}-${version}.lst:g" _uninstaller.sh > ${buildroot}/etc/uninstall/${name}-${version}-uninstall.sh
-chmod 0644 ${buildroot}/etc/uninstall/${name}-${version}-uninstall.sh
+sed "s:%MANIFEST%:${name}-${version}.lst:g" _uninstaller.sh > ${buildroot}/etc/uninstall/${name}-${version}-${release}-uninstall.sh
+chmod 0644 ${buildroot}/etc/uninstall/${name}-${version}-${release}-uninstall.sh
 
 find ${buildroot} -mindepth 1 -not -type d -printf "%P\n" > ${name}-${version}.lst
 find ${buildroot} -mindepth 1 -type d -printf "%P/\n" >> ${name}-${version}.lst
