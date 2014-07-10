@@ -24,9 +24,7 @@ __setup_n=${name}-${version}
     __setup_n=meld
     rm -rf ${buildroot}
     cd ${_builddir}
-    git submodule update
     cd ${__setup_n}
-    git reset --hard
     git clean -xdf
 }
 

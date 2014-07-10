@@ -5,28 +5,28 @@ umask 0022
 MANIFEST=%MANIFEST%
 
 if [[ "${OSTYPE}" != "cygwin" ]] ; then
-    echo "$OSTYPE: not cygwin"
+    echo "[FATAL] $OSTYPE: not cygwin"
     exit 1
 fi
 
 ## assume /etc/setup/*.lst.gz
 zcat /etc/setup/*.lst.gz | sort -u > _installed.lst
 
+conflict=0;
 for file in $(<${MANIFEST}) ; do
     if egrep -q "^${file}$" _installed.lst ; then
         if [ -d ${file} ] ; then
-            echo "$file: directory exists"
             true
         else
-            echo "$file: **CONFLICT** file exists"
-            exit 1
+            echo "[FATAL] $file: **CONFLICT** file exists"
+            ((conflict++))
         fi
     fi
 done
 
+[[ $conflict -eq 0 ]] || exit 1
+
 ## Verification OK.  Install...
-read -p "Continue with installation? [y/N] "
-[[ ${REPLY} == "y" ]] || exit 0
 for file in $(<${MANIFEST}) ; do
     echo "${file}"
     if [[ -d $file ]] ; then

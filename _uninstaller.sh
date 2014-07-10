@@ -1,20 +1,13 @@
 #!/bin/bash
 set -e
 
-################################################################################
-## BEGIN HEADER
-echo 'COPY THIS FILE INTO /tmp, EDIT HEADER AND RUN FROM THERE'
-exit 1
-## END HEADER
-################################################################################
-
 _tmpdir=$(mktemp -d -t makeself_uninst.XXXX)
 cd ${_tmpdir}
 
 MANIFEST=%MANIFEST%
 
 if [[ "${OSTYPE}" != "cygwin" ]] ; then
-    echo "$OSTYPE: not cygwin"
+    echo "[FATAL] $OSTYPE: not cygwin"
     exit 1
 fi
 
@@ -30,7 +23,7 @@ gzip -c ${MANIFEST} > ${setup_gz}
 for file in $(<${MANIFEST}) ; do
     if egrep -q "^${file}$" _installed.lst ; then
         if [[ -d /${file} ]] ; then
-            echo "[WARNING] ${file}: Required directory"
+            true
         else
             echo "[FATAL] ${file}: Required file"
             exit 1
@@ -42,9 +35,9 @@ done
 for file in $(tac ${MANIFEST}) ; do
     if [[ -d /${file} ]] ; then
         if egrep -q "^${file}$" _installed.lst ; then
-            echo "${file}: skip required directory"
+            true
         elif [[ -n $(ls -A /${file}) ]] ; then
-            echo "[WARNING] ${file}: directory not empty"
+            echo "[WARNING] ${file}: directory not empty. Skipping"
         else
             rmdir -v /${file}
         fi
