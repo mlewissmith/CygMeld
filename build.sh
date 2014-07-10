@@ -6,8 +6,8 @@ source _build_sh.rc
 ## current stable version 1.8.5 is not tagged, but is available as git revision 2591549
 
 name=meld
-version=1.6.0
-release=1.0
+version=1.7.0
+release=20140710
 
 BuildRequires intltool
 BuildRequires python-gtk2.0
