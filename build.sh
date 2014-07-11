@@ -1,9 +1,14 @@
 #!/bin/bash
 set -e
+cd=$(dirname $(readlink -e $0))
 source _build_sh.rc
 
-## [mils] NOTE
-## current stable version 1.8.5 is not tagged, but is available as git revision 2591549
+## NOTES
+## - last buildable, runnable revision `meld@b831bb7`
+##   +b831bb7eb50594a708ab4d9f0fc9ac45ca41cce3 meld (1.7.0-62-gb831bb7)
+## - current "stable" version 1.8.5 is not tagged,
+##   but is available as `meld@2591549`
+##   +2591549e5324518fa7e096290fef8fa6dd9e8c7b meld (1.8.4-9-g2591549)
 
 name=meld
 version=1.7.0
