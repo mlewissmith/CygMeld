@@ -2,12 +2,14 @@
 set -e
 source _build_sh.rc
 
-## [mils] NOTE
-## current stable version 1.8.5 is not tagged, but is available as git revision 2591549
+## [mils]
+## NOTE current stable version 1.8.5 is not tagged,
+## but is available as git revision 2591549
+## NOTE last good revision  b831bb7
 
 name=meld
-version=1.7.0
-release=20140710
+version=1.7.1
+release=20140711
 
 BuildRequires intltool
 BuildRequires python-gtk2.0
