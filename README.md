@@ -22,7 +22,7 @@ BUILDING FROM SOURCE
 --------------------
 * Clone this repository
 ```
-  $ git clone https://github.com/mlewissmith/CygMeld.git`
+  $ git clone https://github.com/mlewissmith/CygMeld.git
 ```
 * Update submodule(s)
 ```
